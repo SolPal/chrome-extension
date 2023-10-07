@@ -20,6 +20,18 @@ const App = () => {
         })
     }, [])
 
+    chrome.storage.local.get(['isActivated'], result => {
+        console.log('Gimme: isActivated', result)
+
+        if (result.isActivated === undefined) {
+            chrome.storage.local.set({ isActivated: true }, () => {
+                console.log('Gimme: isActivated set to true')
+            })
+        } else {
+            setIsActivated(result.isActivated)
+        }
+    })
+
     return (
         <>
             {isActivated && (
