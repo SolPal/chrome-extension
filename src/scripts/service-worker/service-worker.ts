@@ -1,10 +1,28 @@
 console.log('Background Service Worker Loaded')
 
-chrome.runtime.onInstalled.addListener(async () => {
-    console.log('Extension installed')
+// Create context menu item
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+        id: 'solpal',
+        title: 'SolPal',
+        contexts: ['selection']
+    })
 })
 
-chrome.action.setBadgeText({ text: 'ON' })
+// Listen for context menu clicks
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === 'solpal') {
+        const selectedText = info.selectionText
+        console.log('Selected text back:', selectedText)
+        // Send message to content script
+        chrome.tabs.sendMessage(tab.id, {
+            action: 'getSelectedText',
+            text: selectedText
+        })
+    }
+})
+
+// chrome.action.setBadgeText({ text: 'ON' })
 
 chrome.action.onClicked.addListener(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {

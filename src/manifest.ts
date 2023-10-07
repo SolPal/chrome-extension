@@ -15,7 +15,6 @@ interface Manifest {
     }
     background: {
         service_worker: string
-        type: string
     }
     icons: {
         [key: number]: string
@@ -60,15 +59,14 @@ const createBaseManifest = async (): Promise<Manifest> => {
                 open_in_tab: true
             },
             background: {
-                service_worker: 'js/service-worker.js',
-                type: 'module'
+                service_worker: 'js/service-worker.js'
             },
             icons: {
                 16: './assets/icon-16.png',
                 48: './assets/icon-48.png',
                 128: './assets/icon-128.png'
             },
-            permissions: [],
+            permissions: ['contextMenus', 'storage', 'sidePanel'],
             content_scripts: [
                 {
                     matches: ['<all_urls>'],

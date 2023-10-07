@@ -1,7 +1,7 @@
 {
-    "name": "web-extension-boilerplate-23",
-    "longName": "Web Extension Boilerplate by withSeismic.com",
-    "description": "Web Extension Boilerplate by withSeismic.com",
+    "name": "solpal-chrome-extension",
+    "longName": "Solpal.ai",
+    "description": "Personal web companion for everything web3 and Solana related",
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
@@ -15,8 +15,8 @@
         "build:js": "vite build --config vite.config.content.ts",
         "preview": "vite preview"
     },
-    "author": "Doug Silkstone <doug@withseismic.com>",
-    "license": "ISC",
+    "author": "Rafael Gomes <eng.rsgomes@gmail.com>",
+    "license": "MIT",
     "devDependencies": {
         "@types/chrome": "^0.0.240",
         "@types/fs-extra": "^11.0.1",

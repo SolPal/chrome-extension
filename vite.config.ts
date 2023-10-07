@@ -15,7 +15,7 @@ const rollupInput = getRollupInput([
     './src/scripts/popup/popup.html',
     './src/scripts/onInstalled/index.tsx',
     './src/scripts/onInstalled/onInstalled.html',
-    './src/scripts/service-worker/service-worker.ts',
+    './src/scripts/service-worker/service-worker.ts'
 ])
 
 function getRollupInput(files) {
