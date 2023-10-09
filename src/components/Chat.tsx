@@ -97,27 +97,16 @@ export default function Chat({
 
                                 if (message.isResponse) {
                                     if (message.isLoading)
-                                        return (
-                                            <ResponseLoaderSkeleton
-                                                key={index}
-                                                ref={isLastMessage ? lastMessageRef : null}
-                                            />
-                                        )
+                                        return <ResponseLoaderSkeleton key={index} />
                                     return (
                                         <ResponseContainer
                                             key={index}
                                             response={message.message}
-                                            ref={isLastMessage ? lastMessageRef : null}
+                                            forceSlowText={true}
                                         />
                                     )
                                 } else {
-                                    return (
-                                        <PromptContainer
-                                            key={index}
-                                            prompt={message.message}
-                                            ref={isLastMessage ? lastMessageRef : null}
-                                        />
-                                    )
+                                    return <PromptContainer key={index} prompt={message.message} />
                                 }
                             })
                         ) : (
@@ -151,7 +140,8 @@ export default function Chat({
                                 setMessages((prev: MessageProps[]) => [
                                     ...prev,
                                     {
-                                        message: 'I am a response',
+                                        message:
+                                            'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
                                         isResponse: true,
                                         isLoading: true
                                     }
@@ -162,7 +152,11 @@ export default function Chat({
                                 setMessages((prev: MessageProps[]) =>
                                     [
                                         ...prev,
-                                        { message: 'I am a response', isResponse: true }
+                                        {
+                                            message:
+                                                'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
+                                            isResponse: true
+                                        }
                                     ].filter(message => !message.isLoading)
                                 )
                                 setIsLoading(false)

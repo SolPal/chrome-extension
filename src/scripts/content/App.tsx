@@ -35,7 +35,8 @@ const App = () => {
                 setMessages((prev: MessageProps[]) => [
                     ...prev,
                     {
-                        message: 'I am a response',
+                        message:
+                            'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
                         isResponse: true,
                         isLoading: true
                     }
@@ -44,9 +45,14 @@ const App = () => {
 
             setTimeout(() => {
                 setMessages((prev: MessageProps[]) =>
-                    [...prev, { message: 'I am a response', isResponse: true }].filter(
-                        message => !message.isLoading
-                    )
+                    [
+                        ...prev,
+                        {
+                            message:
+                                'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
+                            isResponse: true
+                        }
+                    ].filter(message => !message.isLoading)
                 )
                 setIsLoading(false)
             }, 2000)
