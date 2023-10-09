@@ -115,15 +115,15 @@ export default function Chat({
                     </CardContent>
 
                     <Button
-                        variant="outline"
+                        variant="default"
                         size="icon"
-                        className={`absolute right-4 bottom-1 z-10  transition-opacity duration-300 sm:right-8 md:bottom-2 bg-black disabled:opacity-0 ${
+                        className={`absolute right-4 bottom-1 z-10  transition-opacity duration-300 sm:right-8 md:bottom-2 border border-slate-300 rounded-xl bg-slate-100 disabled:opacity-0 ${
                             isAtBottom ? 'opacity-0' : 'opacity-100'
                         }`}
                         onClick={scrollToBottom}
                         disabled={isAtBottom}
                     >
-                        <IconArrowDown />
+                        <IconArrowDown className="fill-slate-500" />
                         <span className="sr-only">Scroll to bottom</span>
                     </Button>
                 </div>
