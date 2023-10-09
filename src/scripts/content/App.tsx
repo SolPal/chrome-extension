@@ -5,12 +5,14 @@ import React, { useEffect, useState } from 'react'
 export type MessageProps = {
     message: string
     isResponse: boolean
+    isLoading?: boolean
 }
 
 const App = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [isActivated, setIsActivated] = useState(true)
     const [messages, setMessages] = useState<MessageProps[]>([]) //array of strings
+    const [isLoading, setIsLoading] = useState(false)
 
     const toggleIsOpen = () => {
         setIsOpen(!isOpen)
@@ -28,12 +30,26 @@ const App = () => {
                 ...prev,
                 { message: request.text, isResponse: false }
             ])
+            setIsLoading(true)
             setTimeout(() => {
                 setMessages((prev: MessageProps[]) => [
                     ...prev,
-                    { message: 'I am a response', isResponse: true }
+                    {
+                        message: 'I am a response',
+                        isResponse: true,
+                        isLoading: true
+                    }
                 ])
-            }, 500)
+            }, 100)
+
+            setTimeout(() => {
+                setMessages((prev: MessageProps[]) =>
+                    [...prev, { message: 'I am a response', isResponse: true }].filter(
+                        message => !message.isLoading
+                    )
+                )
+                setIsLoading(false)
+            }, 2000)
             console.log('Gimme: Message Received', request, sender, sendResponse)
         })
     }, [])
@@ -41,11 +57,11 @@ const App = () => {
     return (
         <>
             {isActivated && (
-                <div className="fixed bottom-0 right-0 p-4">
+                <div className="fixed bottom-0 right-0 p-4 z-[999]">
                     <div className="inline-flex items-center justify-center h-16 rounded-full relative">
                         <div className="inline-flex items-center justify-end p-2 rounded-full">
                             <button
-                                className="fixed bottom-4 right-4 inline-flex items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16  hover:brightness-125 m-0 cursor-pointer border-gray-200 hover:border-[#44fbe1] bg-none p-0 normal-case leading-5  overflow-hidden"
+                                className="fixed bottom-14 right-4 z-[999999] inline-flex items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16  hover:brightness-125 m-0 cursor-pointer border-gray-200 hover:border-[#44fbe1] bg-none p-0 normal-case leading-5  overflow-hidden"
                                 type="button"
                                 aria-haspopup="dialog"
                                 aria-expanded="false"
@@ -66,6 +82,8 @@ const App = () => {
                                         messages={messages}
                                         toggleIsOpen={toggleIsOpen}
                                         toggleIsActivated={toggleIsActivated}
+                                        isLoading={isLoading}
+                                        setIsLoading={setIsLoading}
                                     />
                                 </div>
                             )}

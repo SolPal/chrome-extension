@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
+import { Avatar } from './ui/avatar'
+import { IconUser } from './ui/icons'
 
-export default function PromptContainer({ prompt }: { prompt: string }) {
+export default function PromptContainer({
+    prompt,
+    ref
+}: {
+    prompt: string
+    ref: React.MutableRefObject<any>
+}) {
     return (
-        <div className="flex w-full items-center justify-end">
-            <div className="flex gap-3 my-4 text-gray-600 text-sm bg-[#63458d] max-w-[80%] min-w-[20%] py-3 px-4 rounded-xl ">
-                <p className="leading-relaxed text-gray-100 text-right w-full">
+        <div className="pr-2 flex w-full gap-x-2 items-center justify-end" ref={ref?.current}>
+            <div className="flex gap-3 my-4 text-gray-600 text-sm bg-[#63458d] max-w-[80%] min-w-[20%] py-3 px-4 rounded-xl prompt">
+                <p className="leading-relaxed text-gray-100 w-full">
                     <span className="block font-bold text-white">You </span>
                     {prompt}
                 </p>
