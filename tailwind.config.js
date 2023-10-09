@@ -18,44 +18,44 @@ module.exports = {
         },
         extend: {
             colors: {
-                border: 'hsl(var(--border))',
-                input: 'hsl(var(--input))',
-                ring: 'hsl(var(--ring))',
-                background: 'hsl(var(--background))',
-                foreground: 'hsl(var(--foreground))',
+                border: 'hsl(220 13% 91%)',
+                input: 'hsl(220 13% 91%)',
+                ring: 'hsl(262.1 83.3% 57.8%)',
+                background: 'hsl(0 0% 100%)',
+                foreground: 'hsl(224 71.4% 4.1%)',
                 primary: {
-                    DEFAULT: 'hsl(var(--primary))',
-                    foreground: 'hsl(var(--primary-foreground))'
+                    DEFAULT: 'hsl(265,34%,41%)',
+                    foreground: 'hsl(210 20% 98%)'
                 },
                 secondary: {
-                    DEFAULT: 'hsl(var(--secondary))',
-                    foreground: 'hsl(var(--secondary-foreground))'
+                    DEFAULT: 'hsl(220 14.3% 95.9%)',
+                    foreground: 'hsl(220.9 39.3% 11%)'
                 },
                 destructive: {
-                    DEFAULT: 'hsl(var(--destructive))',
-                    foreground: 'hsl(var(--destructive-foreground))'
+                    DEFAULT: 'hsl(0 84.2% 60.2%)',
+                    foreground: 'hsl( 210 20% 98%)'
                 },
                 muted: {
-                    DEFAULT: 'hsl(var(--muted))',
-                    foreground: 'hsl(var(--muted-foreground))'
+                    DEFAULT: 'hsl(220 14.3% 95.9%)',
+                    foreground: 'hsl(220 8.9% 46.1%)'
                 },
                 accent: {
-                    DEFAULT: 'hsl(var(--accent))',
-                    foreground: 'hsl(var(--accent-foreground))'
+                    DEFAULT: 'hsl(220 14.3% 95.9%)',
+                    foreground: 'hsl(220.9 39.3% 11%))'
                 },
                 popover: {
-                    DEFAULT: 'hsl(var(--popover))',
-                    foreground: 'hsl(var(--popover-foreground))'
+                    DEFAULT: 'hsl(0 0% 100%)',
+                    foreground: 'hsl(224 71.4% 4.1%)'
                 },
                 card: {
-                    DEFAULT: 'hsl(var(--card))',
-                    foreground: 'hsl(var(--card-foreground))'
+                    DEFAULT: 'hsl(0 0% 100%)',
+                    foreground: 'hsl(224 71.4% 4.1%)'
                 }
             },
             borderRadius: {
-                lg: 'var(--radius)',
-                md: 'calc(var(--radius) - 2px)',
-                sm: 'calc(var(--radius) - 4px)'
+                lg: '0.5rem',
+                md: 'calc(0.5rem - 2px)',
+                sm: 'calc(0.5rem - 4px)'
             },
             keyframes: {
                 'accordion-down': {

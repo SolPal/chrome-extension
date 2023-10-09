@@ -56,7 +56,7 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
                     variant="default"
                     disabled={isLoading || !input?.trim()}
                     className={
-                        'bg-[#63458d] h-full sm:rounded-xl flex  items-center justify-center px-4 min-w-[60px] max-w-[80px] max-h-[60px] w-full '
+                        ' h-full sm:rounded-xl flex  items-center justify-center px-4 min-w-[60px] max-w-[80px] max-h-[60px] w-full '
                     }
                 >
                     <IoSend fill="white" size={'2rem'} />
