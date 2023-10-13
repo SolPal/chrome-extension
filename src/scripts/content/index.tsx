@@ -2,6 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import styles from '@/styles/index.css?inline'
 import App from './App'
+import '@/styles/index.css'
 
 const isProduction: boolean = process.env.NODE_ENV === 'production'
 const ROOT_ID = 'extension-root'
@@ -31,7 +32,7 @@ const injectReact = (rootId: string): void => {
         root.render(
             <React.StrictMode>
                 <>
-                    {isProduction && <style>{styles.toString()}</style>}
+                    <style>{styles.toString()}</style>
                     <App />
                 </>
             </React.StrictMode>

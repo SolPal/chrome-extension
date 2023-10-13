@@ -9,6 +9,8 @@ import ResponseLoaderSkeleton from './ResponseLoaderSkeleton'
 import { Button } from './ui/button'
 import { IconArrowDown } from './ui/icons'
 import { Avatar } from './ui/avatar'
+import { useSession } from '@/hooks/useSession'
+import { useUser } from '@/hooks/useUser'
 
 export default function Chat({
     toggleIsOpen,
@@ -25,6 +27,8 @@ export default function Chat({
     isLoading: boolean
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }) {
+    const { session } = useSession()
+    const { user } = useUser()
     const [input, setInput] = useState('')
     const lastMessageRef = useRef(null)
 
@@ -73,10 +77,18 @@ export default function Chat({
                     <CardTitle className="flex items-center gap-3">
                         <Avatar className="border border-white">
                             <img
-                                src="https://cdn.discordapp.com/attachments/1159197460158238730/1159948783166165102/solpal-logo.png?ex=6532e17c&is=65206c7c&hm=95e3831ff8a8e1cb955d239d1dc84da8868cfc4009bf1448af0c65a35b16d6ff&"
+                                src={
+                                    user?.image ||
+                                    'https://cdn.discordapp.com/attachments/1159197460158238730/1159948783166165102/solpal-logo.png?ex=6532e17c&is=65206c7c&hm=95e3831ff8a8e1cb955d239d1dc84da8868cfc4009bf1448af0c65a35b16d6ff&'
+                                }
                                 alt="Logo"
-                                width={64}
                                 height={64}
+                                width={64}
+                                className={` ${
+                                    user?.imgConfig?.mirror
+                                        ? 'transform -scale-x-100'
+                                        : 'transform scale-x-100'
+                                }`}
                             />
                         </Avatar>
                         SolPal.ai Chat

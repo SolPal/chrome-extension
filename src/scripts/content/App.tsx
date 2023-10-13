@@ -1,6 +1,8 @@
 import Chat from '@/components/Chat'
-import { PromptForm } from '@/components/PromptForm'
-import React, { useEffect, useState } from 'react'
+import { useSession } from '@/hooks/useSession'
+import React, { useCallback, useEffect, useState } from 'react'
+import axios from 'axios'
+import { useUser } from '@/hooks/useUser'
 
 export type MessageProps = {
     message: string
@@ -9,6 +11,9 @@ export type MessageProps = {
 }
 
 const App = () => {
+    const { session } = useSession()
+    const { user } = useUser()
+    console.log('USERRR: ', user)
     const [isOpen, setIsOpen] = useState(false)
     const [isActivated, setIsActivated] = useState(true)
     const [messages, setMessages] = useState<MessageProps[]>([]) //array of strings
@@ -75,9 +80,16 @@ const App = () => {
                                 onClick={toggleIsOpen}
                             >
                                 <img
-                                    src="https://cdn.discordapp.com/attachments/1159197460158238730/1159948783166165102/solpal-logo.png?ex=6532e17c&is=65206c7c&hm=95e3831ff8a8e1cb955d239d1dc84da8868cfc4009bf1448af0c65a35b16d6ff&"
+                                    src={
+                                        user?.image ||
+                                        'https://cdn.discordapp.com/attachments/1159197460158238730/1159948783166165102/solpal-logo.png?ex=6532e17c&is=65206c7c&hm=95e3831ff8a8e1cb955d239d1dc84da8868cfc4009bf1448af0c65a35b16d6ff&'
+                                    }
                                     alt="Logo"
-                                    className="w-16 h-16"
+                                    className={`w-16 h-16 ${
+                                        user?.imgConfig?.mirror
+                                            ? 'transform -scale-x-100'
+                                            : 'transform scale-x-100'
+                                    }`}
                                 />
                             </button>
                             {isOpen && (

@@ -1,8 +1,13 @@
+import WalletContextProvider from '@/context/WalletContextProvider'
+import { useSession } from '@/hooks/useSession'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import React from 'react'
 
 const Popup = () => {
+    const session = useSession()
+
     return (
-        <div className="inline-flex flex-col justify-between p-8 border shadow w-96 h-44 bg-[#271a38] border-zinc-800 overflow-hidden">
+        <div className="inline-flex flex-col justify-between p-8 border shadow w-96 h-full bg-[#271a38] border-zinc-800 overflow-hidden">
             <div className="grid grid-cols-[2fr,1fr] items-center justify-center gap-4">
                 <div className="inline-flex flex-col items-start justify-between gap-1 h-full">
                     <div>
@@ -33,6 +38,7 @@ const Popup = () => {
                     />
                 </div>
             </div>
+            {session ? <div>Logged in as {JSON.stringify(session)}</div> : <div>Not logged in</div>}
         </div>
     )
 }
