@@ -13,7 +13,6 @@ export type MessageProps = {
 const App = () => {
     const { session } = useSession()
     const { user } = useUser()
-    console.log('USERRR: ', user)
     const [isOpen, setIsOpen] = useState(false)
     const [isActivated, setIsActivated] = useState(true)
     const [messages, setMessages] = useState<MessageProps[]>([]) //array of strings

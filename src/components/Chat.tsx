@@ -11,6 +11,7 @@ import { IconArrowDown } from './ui/icons'
 import { Avatar } from './ui/avatar'
 import { useSession } from '@/hooks/useSession'
 import { useUser } from '@/hooks/useUser'
+import { useAiChat } from '@/hooks/useAiChat'
 
 export default function Chat({
     toggleIsOpen,
@@ -27,6 +28,7 @@ export default function Chat({
     isLoading: boolean
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }) {
+    const AiChat = useAiChat()
     const { session } = useSession()
     const { user } = useUser()
     const [input, setInput] = useState('')
@@ -147,27 +149,32 @@ export default function Chat({
                                 ...prev,
                                 { message: input, isResponse: false }
                             ])
+
                             setIsLoading(true)
+
                             setTimeout(() => {
                                 setMessages((prev: MessageProps[]) => [
                                     ...prev,
                                     {
-                                        message:
-                                            'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
+                                        message: "Working on it, I'll be right back",
                                         isResponse: true,
                                         isLoading: true
                                     }
                                 ])
                             }, 100)
 
+                            const aiResponse = await AiChat.getResponse(
+                                'explain in a few words: ' + input
+                            )
+
                             setTimeout(() => {
                                 setMessages((prev: MessageProps[]) =>
                                     [
                                         ...prev,
                                         {
-                                            message:
-                                                'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
-                                            isResponse: true
+                                            message: aiResponse || 'Failed to generate response',
+                                            isResponse: true,
+                                            isLoading: false
                                         }
                                     ].filter(message => !message.isLoading)
                                 )

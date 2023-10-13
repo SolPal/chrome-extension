@@ -51,4 +51,10 @@ chrome.commands.onCommand.addListener(command => {
     }
 })
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'reloadExtension') {
+        chrome.runtime.reload()
+    }
+})
+
 export {}

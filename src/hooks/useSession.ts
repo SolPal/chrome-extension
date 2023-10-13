@@ -42,7 +42,9 @@ export const useSession = () => {
             chrome.storage.sync.set({ session: fetchedSession }, () => {
                 setSession(fetchedSession)
             })
+            return fetchedSession
         } catch (e) {
+            return null
             console.log(e)
         }
     }
@@ -61,6 +63,8 @@ export const useSession = () => {
         })
 
         if (window.location.hostname === allowedDomain) {
+            fetchSession().then(() => chrome.runtime.sendMessage({ action: 'reloadExtension' }))
+
             const intervalId = setInterval(() => {
                 fetchSession()
             }, 1000 * 60)
@@ -71,7 +75,7 @@ export const useSession = () => {
                 }
             })
 
-            // return () => clearInterval(intervalId);
+            return () => clearInterval(intervalId)
         }
     }, [])
 

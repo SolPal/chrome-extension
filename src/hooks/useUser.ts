@@ -22,8 +22,6 @@ export const useUser = () => {
     useEffect(() => {
         // Check if we are in the allowed domain
         const allowedDomain = 'localhost'
-
-        // Get user from Chrome Storage
         try {
             if (window.location.hostname !== allowedDomain) {
                 chrome.storage.sync.get(['user'], result => {
