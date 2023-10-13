@@ -11,7 +11,7 @@ import { IconArrowDown } from './ui/icons'
 import { Avatar } from './ui/avatar'
 import { useSession } from '@/hooks/useSession'
 import { useUser } from '@/hooks/useUser'
-import { useAiChat } from '@/hooks/useAiChat'
+import { useAiChat, useOpenAi } from '@/hooks/useAiChat'
 
 export default function Chat({
     toggleIsOpen,
@@ -28,7 +28,7 @@ export default function Chat({
     isLoading: boolean
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-    const AiChat = useAiChat()
+    const AiChat = useOpenAi()
     const { session } = useSession()
     const { user } = useUser()
     const [input, setInput] = useState('')
@@ -164,7 +164,7 @@ export default function Chat({
                             }, 100)
 
                             const aiResponse = await AiChat.getResponse(
-                                'explain in a few words: ' + input
+                                'explain in a few words the meaning of this in Solana: ' + input
                             )
 
                             setTimeout(() => {
@@ -172,14 +172,16 @@ export default function Chat({
                                     [
                                         ...prev,
                                         {
-                                            message: aiResponse || 'Failed to generate response',
+                                            message:
+                                                aiResponse.choices[0].message.content ||
+                                                'Failed to generate response',
                                             isResponse: true,
                                             isLoading: false
                                         }
                                     ].filter(message => !message.isLoading)
                                 )
                                 setIsLoading(false)
-                            }, 2000)
+                            }, 10)
                         }}
                         isLoading={isLoading}
                         input={input}

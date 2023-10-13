@@ -63,7 +63,7 @@ export const useSession = () => {
         })
 
         if (window.location.hostname === allowedDomain) {
-            fetchSession().then(() => chrome.runtime.sendMessage({ action: 'reloadExtension' }))
+            fetchSession()
 
             const intervalId = setInterval(() => {
                 fetchSession()
