@@ -38,7 +38,6 @@ const Popup = () => {
                     />
                 </div>
             </div>
-            {session ? <div>Logged in as {JSON.stringify(session)}</div> : <div>Not logged in</div>}
         </div>
     )
 }

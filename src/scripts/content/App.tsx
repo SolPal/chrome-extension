@@ -3,6 +3,7 @@ import { useSession } from '@/hooks/useSession'
 import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useUser } from '@/hooks/useUser'
+import { useOpenAi } from '@/hooks/useAiChat'
 
 export type MessageProps = {
     message: string
@@ -11,6 +12,7 @@ export type MessageProps = {
 }
 
 const App = () => {
+    const AiChat = useOpenAi()
     const { session } = useSession()
     const { user } = useUser()
     const [isOpen, setIsOpen] = useState(false)
@@ -29,38 +31,42 @@ const App = () => {
     useEffect(() => {
         console.log('Gimme: App.tsx')
 
-        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
             setMessages((prev: MessageProps[]) => [
                 ...prev,
                 { message: request.text, isResponse: false }
             ])
+
             setIsLoading(true)
+
             setTimeout(() => {
                 setMessages((prev: MessageProps[]) => [
                     ...prev,
                     {
-                        message:
-                            'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
+                        message: 'Working on it',
                         isResponse: true,
                         isLoading: true
                     }
                 ])
             }, 100)
 
+            const aiResponse = await AiChat.getResponse(
+                'explain in a few words the meaning of this in Solana: ' + request.text
+            )
+
             setTimeout(() => {
                 setMessages((prev: MessageProps[]) =>
                     [
                         ...prev,
                         {
-                            message:
-                                'I am a bigger response, loading slowly, so the user has the feeling that this text is being generated in real time',
-                            isResponse: true
+                            message: aiResponse?.choices[0]?.message?.content,
+                            isResponse: true,
+                            isLoading: false
                         }
-                    ].filter(message => !message.isLoading)
+                    ].filter(obj => !obj.isLoading || !(obj.message === 'Working on it'))
                 )
                 setIsLoading(false)
-            }, 2000)
-            console.log('Gimme: Message Received', request, sender, sendResponse)
+            }, 10)
         })
     }, [])
 
