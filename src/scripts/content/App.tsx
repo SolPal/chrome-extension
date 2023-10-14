@@ -32,6 +32,7 @@ const App = () => {
         console.log('Gimme: App.tsx')
 
         chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+            setIsOpen(true)
             setMessages((prev: MessageProps[]) => [
                 ...prev,
                 { message: request.text, isResponse: false }
