@@ -106,23 +106,29 @@ export default function Chat({
                         style={{ scrollBehavior: 'smooth' }}
                     >
                         {messages.length ? (
-                            messages.map((message, index) => {
-                                const isLastMessage = index === messages.length - 1
+                            messages
+                                .filter(message => {
+                                    if (isLoading) return true
 
-                                if (message.isResponse) {
-                                    if (message.isLoading)
+                                    return !message.isLoading
+                                })
+                                .map((message, index) => {
+                                    if (message.isLoading) {
                                         return <ResponseLoaderSkeleton key={index} />
-                                    return (
-                                        <ResponseContainer
-                                            key={index}
-                                            response={message.message}
-                                            forceSlowText={true}
-                                        />
-                                    )
-                                } else {
+                                    }
+
+                                    if (message.isResponse) {
+                                        return (
+                                            <ResponseContainer
+                                                key={index}
+                                                response={message.message}
+                                                forceSlowText={true}
+                                            />
+                                        )
+                                    }
+
                                     return <PromptContainer key={index} prompt={message.message} />
-                                }
-                            })
+                                })
                         ) : (
                             <ResponseContainer response={'Como posso ajudar?'} />
                         )}
@@ -172,13 +178,11 @@ export default function Chat({
                                     [
                                         ...prev,
                                         {
-                                            message:
-                                                aiResponse.choices[0].message.content ||
-                                                'Failed to generate response',
+                                            message: aiResponse?.choices[0]?.message?.content,
                                             isResponse: true,
                                             isLoading: false
                                         }
-                                    ].filter(message => !message.isLoading)
+                                    ].filter(obj => !obj.message.isLoading)
                                 )
                                 setIsLoading(false)
                             }, 10)

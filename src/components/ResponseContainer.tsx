@@ -9,8 +9,6 @@ export default function ResponseContainer({
     ref?: React.MutableRefObject<any>
     forceSlowText?: boolean
 }) {
-    console.log(response)
-
     const [slowText, setSlowText] = useState('')
     useEffect(() => {
         const words = response.split(' ')
@@ -21,7 +19,7 @@ export default function ResponseContainer({
                 const randomWordCount = Math.floor(Math.random() * 4) + 2 // Random number between 2 and 5
                 const wordsToAdd = words.slice(index, index + randomWordCount).join(' ')
 
-                if (index < words.length - 1) {
+                if (index <= words.length - 1) {
                     setSlowText(prevText => prevText + ' ' + wordsToAdd)
                     index += randomWordCount
                 } else {
