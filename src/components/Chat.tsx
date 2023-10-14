@@ -109,12 +109,22 @@ export default function Chat({
                             messages
                                 .filter(message => {
                                     if (isLoading) return true
-
                                     return !message.isLoading
                                 })
                                 .map((message, index) => {
-                                    if (message.isLoading) {
+                                    const isLastMessage = index === messages.length - 1
+                                    if (message.isLoading && isLastMessage) {
                                         return <ResponseLoaderSkeleton key={index} />
+                                    }
+
+                                    if (message.isResponse && isLastMessage) {
+                                        return (
+                                            <ResponseContainer
+                                                key={index}
+                                                response={message.message}
+                                                forceSlowText={true}
+                                            />
+                                        )
                                     }
 
                                     if (message.isResponse) {
@@ -122,7 +132,7 @@ export default function Chat({
                                             <ResponseContainer
                                                 key={index}
                                                 response={message.message}
-                                                forceSlowText={true}
+                                                forceSlowText={false}
                                             />
                                         )
                                     }
@@ -162,7 +172,7 @@ export default function Chat({
                                 setMessages((prev: MessageProps[]) => [
                                     ...prev,
                                     {
-                                        message: "Working on it, I'll be right back",
+                                        message: 'Working on it',
                                         isResponse: true,
                                         isLoading: true
                                     }
@@ -182,7 +192,9 @@ export default function Chat({
                                             isResponse: true,
                                             isLoading: false
                                         }
-                                    ].filter(obj => !obj.message.isLoading)
+                                    ].filter(
+                                        obj => !obj.isLoading || !(obj.message === 'Working on it')
+                                    )
                                 )
                                 setIsLoading(false)
                             }, 10)
