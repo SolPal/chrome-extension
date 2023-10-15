@@ -148,6 +148,8 @@ const App = () => {
                 tooltipContent={tooltipContent}
                 tooltipPosition={tooltipPosition}
                 loading={isHighlightedLoading}
+                setHighlightedText={setHighlightedText}
+                setTooltipContent={setTooltipContent}
             />
         </>
     )
