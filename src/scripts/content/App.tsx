@@ -4,6 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useUser } from '@/hooks/useUser'
 import { useOpenAi } from '@/hooks/useAiChat'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import HighlightableText from '@/components/HighlightableText'
 
 export type MessageProps = {
     message: string
@@ -19,6 +21,10 @@ const App = () => {
     const [isActivated, setIsActivated] = useState(true)
     const [messages, setMessages] = useState<MessageProps[]>([]) //array of strings
     const [isLoading, setIsLoading] = useState(false)
+    const [highlightedText, setHighlightedText] = useState('')
+    const [tooltipContent, setTooltipContent] = useState('')
+    const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 })
+    const [isHighlightedLoading, setIsHighlightedLoading] = useState(false)
 
     const toggleIsOpen = () => {
         setIsOpen(!isOpen)
@@ -32,42 +38,64 @@ const App = () => {
         console.log('Gimme: App.tsx')
 
         chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-            setIsOpen(true)
-            setMessages((prev: MessageProps[]) => [
-                ...prev,
-                { message: request.text, isResponse: false }
-            ])
+            const selectedText = window.getSelection().toString()
+            setIsHighlightedLoading(true)
+            if (selectedText) {
+                setHighlightedText(selectedText)
 
-            setIsLoading(true)
+                // Fetch additional information for the tooltip here based on the selectedText
+                // and set it using setTooltipContent.
 
-            setTimeout(() => {
-                setMessages((prev: MessageProps[]) => [
-                    ...prev,
-                    {
-                        message: 'Working on it',
-                        isResponse: true,
-                        isLoading: true
-                    }
-                ])
-            }, 100)
+                // Calculate the position for the tooltip relative to the selected text.
+                const selection = window.getSelection()
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0)
+                    const rect = range.getBoundingClientRect()
+                    setTooltipPosition({
+                        top: rect.bottom + window.scrollY + 5, // Adjust as needed
+                        left: rect.left + window.scrollX
+                    })
+                }
+            }
+            setHighlightedText(request.text)
 
-            const aiResponse = await AiChat.getResponse(
-                'explain in a few words the meaning of this in Solana: ' + request.text
-            )
+            const aiResponse = await AiChat.getResponse(request.text)
+            setIsHighlightedLoading(false)
 
-            setTimeout(() => {
-                setMessages((prev: MessageProps[]) =>
-                    [
-                        ...prev,
-                        {
-                            message: aiResponse?.choices[0]?.message?.content,
-                            isResponse: true,
-                            isLoading: false
-                        }
-                    ].filter(obj => !obj.isLoading || !(obj.message === 'Working on it'))
-                )
-                setIsLoading(false)
-            }, 10)
+            setTooltipContent(aiResponse?.choices[0]?.message?.content)
+
+            //     setIsOpen(true)
+            //     setMessages((prev: MessageProps[]) => [
+            //         ...prev,
+            //         { message: request.text, isResponse: false }
+            //     ])
+            //     setIsLoading(true)
+            //     setTimeout(() => {
+            //         setMessages((prev: MessageProps[]) => [
+            //             ...prev,
+            //             {
+            //                 message: 'Working on it',
+            //                 isResponse: true,
+            //                 isLoading: true
+            //             }
+            //         ])
+            //     }, 100)
+            //     const aiResponse = await AiChat.getResponse(
+            //          request.text
+            //     )
+            //     setTimeout(() => {
+            //         setMessages((prev: MessageProps[]) =>
+            //             [
+            //                 ...prev,
+            //                 {
+            //                     message: aiResponse?.choices[0]?.message?.content,
+            //                     isResponse: true,
+            //                     isLoading: false
+            //                 }
+            //             ].filter(obj => !obj.isLoading || !(obj.message === 'Working on it'))
+            //         )
+            //         setIsLoading(false)
+            //     }, 10)
         })
     }, [])
 
@@ -115,6 +143,12 @@ const App = () => {
                     </div>
                 </div>
             )}
+            <HighlightableText
+                highlightedText={highlightedText}
+                tooltipContent={tooltipContent}
+                tooltipPosition={tooltipPosition}
+                loading={isHighlightedLoading}
+            />
         </>
     )
 }

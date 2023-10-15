@@ -82,6 +82,55 @@ h3 {
     }
 }
 
+.dot-flashing-highlight {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #45444a;
+    color: #45444a;
+    animation: dot-flashing-highlight 1s infinite linear alternate;
+    animation-delay: 0.5s;
+}
+
+.dot-flashing-highlight::before,
+.dot-flashing-highlight::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+.dot-flashing-highlight::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #45444a;
+    color: #45444a;
+    animation: dot-flashing-highlight 1s infinite alternate;
+    animation-delay: 0s;
+}
+.dot-flashing-highlight::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #45444a;
+    color: #45444a;
+    animation: dot-flashing-highlight 1s infinite alternate;
+    animation-delay: 1s;
+}
+
+@keyframes dot-flashing-highlight {
+    0% {
+        background-color: #444a48;
+    }
+    50%,
+    100% {
+        background-color: rgba(68, 74, 72, 0.5);
+    }
+}
+
 .response {
     position: relative;
 }

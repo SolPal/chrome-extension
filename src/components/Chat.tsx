@@ -101,7 +101,7 @@ export default function Chat({
                 </CardHeader>
                 <div className="relative">
                     <CardContent
-                        className="h-[474px] min-w-full overflow-y-auto relative"
+                        className="h-[474px] min-w-full overflow-y-auto relative overflow-x-hidden"
                         ref={chatContainerRef}
                         style={{ scrollBehavior: 'smooth' }}
                     >
@@ -179,9 +179,7 @@ export default function Chat({
                                 ])
                             }, 100)
 
-                            const aiResponse = await AiChat.getResponse(
-                                'explain in a few words the meaning of this in Solana: ' + input
-                            )
+                            const aiResponse = await AiChat.getResponse(input)
 
                             setTimeout(() => {
                                 setMessages((prev: MessageProps[]) =>
