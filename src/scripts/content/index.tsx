@@ -19,10 +19,8 @@ const injectReact = (rootId: string): void => {
         }
 
         if (isProduction) {
-            console.log('Production mode 🚀. Adding Shadow DOM')
             container.attachShadow({ mode: 'open' })
         } else {
-            console.log('Development mode 🛠')
         }
 
         const target: ShadowRoot | HTMLElement = isProduction ? container.shadowRoot! : container

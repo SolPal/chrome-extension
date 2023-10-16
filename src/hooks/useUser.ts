@@ -10,9 +10,7 @@ export const useUser = () => {
 
         // Set user in Chrome Storage
         try {
-            chrome.storage.sync.set({ user: userData }, () => {
-                console.log('User data is stored in Chrome Storage.')
-            })
+            chrome.storage.sync.set({ user: userData }, () => {})
             setUser(userData)
         } catch (e) {
             console.error("Couldn't set user in Chrome Storage:", e)

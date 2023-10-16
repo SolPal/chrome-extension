@@ -1,5 +1,3 @@
-console.log('Background Service Worker Loaded')
-
 // Create context menu item
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
@@ -13,7 +11,6 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === 'solpal') {
         const selectedText = info.selectionText
-        console.log('Selected text back:', selectedText)
         // Send message to content script
         chrome.tabs.sendMessage(tab.id, {
             action: 'getSelectedText',
@@ -35,7 +32,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const { command } = message
     switch (command) {
         case 'hello-world':
-            console.log('Hello World, from the Background Service Worker')
             sendResponse({ success: true, message: 'Hello World' })
             break
         default:
@@ -44,8 +40,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 })
 
 chrome.commands.onCommand.addListener(command => {
-    console.log(`Command: ${command}`)
-
     if (command === 'refresh_extension') {
         chrome.runtime.reload()
     }
