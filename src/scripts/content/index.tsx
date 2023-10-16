@@ -10,7 +10,7 @@ const ROOT_ID = 'extension-root'
 const injectReact = (rootId: string): void => {
     try {
         const container = document.createElement('div')
-        document.body.appendChild(container)
+        document.querySelector('html').appendChild(container)
 
         if (container) {
             container.id = rootId
