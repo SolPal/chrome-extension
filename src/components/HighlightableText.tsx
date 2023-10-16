@@ -23,7 +23,7 @@ const HighlightableText = ({
         <div className="">
             {loading ? (
                 <div
-                    className="absolute bg-white border border-white/30  rounded-lg shadow-md p-6 z-50 backdrop-blur-[128px] bg-opacity-[4%] text-white max-w-xl min-w-[120px] text-xl  mt-2"
+                    className="absolute bg-[#242424] border border-white/30  rounded-lg shadow-md p-6 z-50 backdrop-blur-[128px] text-[#ddd] max-w-xl min-w-[120px] text-xl  mt-2"
                     style={{ top: tooltipPosition.top, left: tooltipPosition.left }}
                 >
                     <div className="grid grid-flow-col gap-4 items-center justify-center relative">
@@ -58,7 +58,7 @@ const HighlightableText = ({
             ) : (
                 highlightedText && (
                     <div
-                        className="absolute bg-white border border-white/30  rounded-lg shadow-md p-6 z-50 backdrop-blur-[128px] min-w-[120px] bg-opacity-[4%] text-white max-w-xl text-xl  mt-2"
+                        className="absolute bg-[#242424] border border-white/30  rounded-lg shadow-md p-6 z-50 backdrop-blur-[128px] min-w-[120px] text-[#ddd] max-w-xl text-xl  mt-2"
                         style={{ top: tooltipPosition.top, left: tooltipPosition.left }}
                     >
                         <div className="relative grid grid-flow-col gap-4 items-center justify-cente">

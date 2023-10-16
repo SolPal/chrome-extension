@@ -36,7 +36,7 @@ export const useSession = () => {
 
     const fetchSession = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/api/auth/session')
+            const res = await axios.get('https://www.solpalai.com/api/auth/session')
             const fetchedSession = await res.data
             if (!fetchedSession) return
             chrome.storage.sync.set({ session: fetchedSession }, () => {
@@ -50,7 +50,7 @@ export const useSession = () => {
     }
 
     useEffect(() => {
-        const allowedDomain = 'localhost' // Substitua pelo domínio desejado
+        const allowedDomain = 'solpalai' // Substitua pelo domínio desejado
 
         // Get session from Chrome storage first
         chrome.storage.sync.get(['session'], async result => {

@@ -59,9 +59,15 @@ const App = () => {
             }
             setHighlightedText(request.text)
 
-            const aiResponse = await AiChat.getResponse(request.text)
-            setIsHighlightedLoading(false)
+            const aiResponse =
+                await AiChat.getResponse(`You are an assitant for all things solana related, answer questions using context and your knowledge of the solana ecosystem and crypto in general.
+                If the question does not have enough context, assume that the user wants to know what is the meaning of the word/phrase, only talk about .js libs if there is explicit mentioning.
+                If a question does not look like a question, it means the user is asking for context to what some sentence regarding solana means, so explain it to him. 
+                You may not need the context provided to answer the question, but it may help you answer the question more accurately.
+                Given the following context, answer the question in a concise response of up to 40 words. 
+                If the question is in a different language, write the final answer in that given language: ${request.text}`)
 
+            setIsHighlightedLoading(false)
             setTooltipContent(aiResponse?.choices[0]?.message?.content)
 
             //     setIsOpen(true)

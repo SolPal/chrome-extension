@@ -5,7 +5,7 @@ export const useUser = () => {
     const [user, setUser] = useState(null)
 
     const fetchUser = async publickey => {
-        const res = await axios.get(`http://localhost:3000/api/user?publickey=${publickey}`)
+        const res = await axios.get(`https://www.solpalai.com/api/user?publickey=${publickey}`)
         const userData = await res.data
 
         // Set user in Chrome Storage
@@ -21,7 +21,7 @@ export const useUser = () => {
 
     useEffect(() => {
         // Check if we are in the allowed domain
-        const allowedDomain = 'localhost'
+        const allowedDomain = 'solpalai'
         try {
             if (window.location.hostname !== allowedDomain) {
                 chrome.storage.sync.get(['user'], result => {
