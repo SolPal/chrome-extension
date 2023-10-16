@@ -50,7 +50,7 @@ export const useSession = () => {
     }
 
     useEffect(() => {
-        const allowedDomain = 'solpalai' // Substitua pelo domínio desejado
+        const allowedDomain = 'solpal' // Substitua pelo domínio desejado
 
         // Get session from Chrome storage first
         chrome.storage.sync.get(['session'], async result => {
