@@ -71,3 +71,7 @@ From here, open Chrome and go to `chrome://extensions`, then hit `Load Unpacked`
 ## Need Help?
 
 Follow me on [twitter.com/engineergomes](https://twitter.com/engineergomes) and drop me a message. I'm here to help. It's what I enjoy the most (aside from shipping products, obviously). Reach out, always.
+
+## Based on a Template
+
+This project is based on the [React Tailwind Chrome Extension Template](https://github.com/dougwithseismic/react-tailwind-chrome-extension-template) by [dougwithseismic](https://github.com/dougwithseismic). Special thanks to the original author for providing the template.
