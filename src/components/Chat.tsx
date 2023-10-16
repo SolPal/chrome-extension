@@ -140,7 +140,7 @@ export default function Chat({
                                     return <PromptContainer key={index} prompt={message.message} />
                                 })
                         ) : (
-                            <ResponseContainer response={'Como posso ajudar?'} />
+                            <ResponseContainer response={'How can I help you?'} />
                         )}
                     </CardContent>
 
