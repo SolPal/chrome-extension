@@ -1,87 +1,64 @@
-# dougwithseismic/react-tailwind-chrome-extension-template 🔥
+# How to Install a Chrome Extension from GitHub
 
-So, you want to build modern web extensions with React & Tailwind? Step on in. This is the starting point for all my browser extensions, including Promptheus, which lets over 28,000 weekly users talk to ChatGPT with their voice.
+This README provides a step-by-step guide on how to install a Chrome extension that you've downloaded from GitHub.
 
-Why do we need another extension boilerplate? Because v3 manifest! At time of writing, nothing out there comes as simple as this to working - If I can help just one person launch their extension then this project is a complete success in my eyes.
+## Table of Contents
 
-## 1. Setup
+1. [Prerequisites](#prerequisites)
+2. [Installing Git](#installing-git)
+3. [Step 1: Clone the GitHub Repository](#step-1-clone-the-github-repository)
+4. [Step 2: Navigate to the Extension Folder](#step-2-navigate-to-the-extension-folder)
+5. [Step 3: Open Chrome and Navigate to Extensions Page](#step-3-open-chrome-and-navigate-to-extensions-page)
+6. [Step 4: Enable Developer Mode](#step-4-enable-developer-mode)
+7. [Step 5: Load Unpacked Extension](#step-5-load-unpacked-extension)
+8. [Step 6: Select the Extension Folder](#step-6-select-the-extension-folder)
+9. [Running on your Chrome](#running-on-your-chrome)
+10. [Need Help?](#need-help)
 
-First off, give this a star! It costs nothing, and it helps more developers get started with products, faster. Let's lift one another up here.
+## Prerequisites
 
-### i. Project Setup
+-   Google Chrome browser
+-   Git installed on your machine
 
-Start by installing your dependencies as usual. We're using Vite to build and React and Tailwind for everything. If you're used to modern web development then you'll have no problem working with this project. I built this boilerplate to match as closely as possible to the experience I'd expect when building web apps with React.
+## Installing Git
 
-```bash
-npm install
-```
+If you don't have Git installed on your machine, you can follow the official installation guide [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-### ii. Edit package.json
+## Step 1: Clone the GitHub Repository
 
-Head over to `package.json` and edit your name, longName and description to match your project. These are used to generate `manifest.json`. For more control over the manifest output, you can edit `src/manifest.ts`
-
-## Project Overview
-
-```bash
-web-extension-boilerplate-23/
-├── .vscode/
-│   ├── launch.json
-│   └── settings.json
-├── dist/
-├── node_modules/
-├── src/
-│   ├── scripts/
-│   │   └── content
-│   │       └── App.tsx
-│   │       └── index.tsx
-│   │   └── onInstalled
-│   │       └── App.tsx
-│   │       └── index.tsx
-│   │       └── onInstalled.html
-│   │   └── options
-│   │       └── Options.tsx
-│   │       └── index.tsx
-│   │       └── options.html
-│   │   └── popup
-│   │       └── Popup.tsx
-│   │       └── index.tsx
-│   │       └── popup.html
-│   │   └── service-worker
-│   │       └── service-worker.tsx
-│   ├── styles/
-│   │   └── index.css
-│   ├── utils/
-│   │   └── browser.ts
-│   ├── index.html
-│   ├── manifest.ts # Generates Manifest.json
-├── .gitignore
-├── package.json
-├── README.md
-├── tsconfig.json
-└── vite.config.ts
-```
+First, clone the GitHub repository containing the Chrome extension to your local machine. Open your terminal and run the following command:
 
 ```bash
-npm run dev
+git clone https://github.com/username/repository-name.git
 ```
 
-This spins up a local vite server and opens the browser to a page that injects your extension, popup, options and content script. As a note, the `service-worker` background script, as well as Browser runtimes for `content.ts` (sending/receiving messages, storage etc) aren't available here, as you'll need to build and load the extension into Chrome. More on that later.
+## Step 2: Navigate to the Extension Folder
 
-You'll find everything you need to get building in `src/scripts/...` so here's a quick overview to get you going.
+Navigate to the folder where the Chrome extension code is located. This is usually the root directory of the cloned repository, but it might be in a subfolder.
 
-- `src/scripts/content/*` - Your content script. What gets injected into a client's tab. index.tsx is where the magic happens in traditional React rendering fashion, and `App.tsx` is your entry point into your app.
+```bash
+cd repository-name
+```
 
-- `src/scripts/onInstalled` - When first installed, this page gets shown. Take the opportunity to spell out exactly how to use your extension and all the benefits, as well as what to do if there are issues (the default for most users with problems is to review bomb your store page, so give them an alternate way to reach out)
+## Step 3: Open Chrome and Navigate to Extensions Page
 
-- `src/scripts/options` - The options tab. Self explanatory; When your extension has loaded, right click the extensions icon in the top right of browser and hit `options`.
+Open Google Chrome and go to the Extensions page. You can either navigate to `chrome://extensions/` or click on the menu icon (three vertical dots) in the upper-right corner, then go to `More Tools` > `Extensions`.
 
-- `src/scripts/popup` - The popup, that's shown with a left click of the extensions icon. If you're not injecting into a webpage, here's a great place to put the bulk of your UI.
+## Step 4: Enable Developer Mode
 
-- `src/scripts/service-worker` - The background script. Check out the examples on how to pass messages back and forth between Content and Background script. It should consist mainly of helper functions and listeners for specific events. You can debug this by heading over to `chrome://extensions` and clicking the `inspect service worker` link, that will open up a new devtools env specifically for the background script.
+On the Extensions page, you'll find a toggle switch for "Developer mode" in the top-right corner. Turn it on.
 
-## Building, Bundling and Shipping 🚢
+## Step 5: Load Unpacked Extension
 
-**READ THIS NEXT SECTION CAREFULLY BECAUSE THERE ARE SOME TIPS THAT WILL SAVE YOU TIME WHILST DEVELOPING YOUR EXTENSION!
+Click the "Load unpacked" button that appears after you enable Developer mode. This will open a file dialog.
+
+## Step 6: Select the Extension Folder
+
+In the file dialog, navigate to the folder where you've cloned the GitHub repository. Select the folder and click "Open."
+
+## Running on your Chrome
+
+**READ THIS NEXT SECTION CAREFULLY BECAUSE THERE ARE SOME TIPS THAT WILL SAVE YOU TIME WHILST DEVELOPING YOUR EXTENSION!**
 
 To get your extension running on Chrome, you'll need to do a couple (easy) steps. Firstly, run the build command, which uses vite to build and output to the `dist` folder.
 
@@ -91,22 +68,6 @@ npm run build
 
 From here, open Chrome and go to `chrome://extensions`, then hit `Load Unpacked` and choose the newly made `dist` directory. Assuming no errors, voila! You're in.
 
-You'll notice that `npm run build` calls on two vite configs, one for your `content` script, and another for everything else. The reasoning for this is that we're having to output two very different builds (a normal 'vite'-ish HTML build, and a library (the `content` script)).
+## Need Help?
 
-You'll also notice that we're watching for changes on the content script so that it rebuilds every time we make a change there. (`vite.config.content.ts` > watch to make edits.) This should make the annoying task of rebuilding, and reloading your extension, slightly easier.
-
-### Protip: Quick Reloading Shortcut
-
-TL;DR - Head to `chrome://extensions/shortcuts` and set your shortcut to Refresh Extension. WITHOUT DOING THIS, SHORTCUTS WONT WORK :)
-
-Heading to `chrome://extensions` and hitting the reload button every time I wanted to make a simple change was a nonsustainable headache so I added a shortcut `Ctrl + Space` (defaults to Command + Space for Mac) that reloads the extension in the same way.
-
-If you want to edit / disable this (and it could be a good idea to do so for production ships) then comment out the `commands` section on `src/manifest.ts`, or remove the `Chrome.commands` mentions from `src/scripts/service-worker/service-worker.ts` More here. [https://developer.chrome.com/docs/extensions/reference/commands/](https://developer.chrome.com/docs/extensions/reference/commands/)
-
-Using `npm run build` with the watcher, and the Quick Reload Shortcut, you can get pretty close to a seamless hot-reloading experience, though its not perfect. Any ideas to make this more fluid are welcome!
-
-## Need help?
-
-Follow me on [twitter.com/dougiesilkstone](https://twitter.com/dougiesilkstone) and drop me a message, and please do submit a PR to help improve! I'll be running a week long hackathon to build and launch an extension project from start to finish, so if you're interested in joining, follow for more info.
-
-I'm here to help. It's what I enjoy the most (aside from shipping products, obviously). Reach out, always.
+Follow me on [twitter.com/engineergomes](https://twitter.com/engineergomes) and drop me a message. I'm here to help. It's what I enjoy the most (aside from shipping products, obviously). Reach out, always.

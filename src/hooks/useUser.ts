@@ -5,7 +5,7 @@ export const useUser = () => {
     const [user, setUser] = useState(null)
 
     const fetchUser = async publickey => {
-        const res = await axios.get(`https://www.solpalai.com/api/user?publickey=${publickey}`)
+        const res = await axios.get(`https://www.solpal.org/api/user?publickey=${publickey}`)
         const userData = await res.data
 
         // Set user in Chrome Storage

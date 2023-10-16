@@ -8,7 +8,7 @@ export function useAiChat() {
     const getResponse = async (input: string) => {
         const data = { input: input }
         setIsLoading(true)
-        const res = await axios.post(`https://www.solpalai.com/chat`, data, { timeout: 300000 })
+        const res = await axios.post(`https://www.solpal.org/chat`, data, { timeout: 300000 })
         const aiResponse = await res.data
         setIsLoading(false)
         return aiResponse
@@ -21,7 +21,7 @@ export function useOpenAi() {
     const getResponse = async (input: string) => {
         try {
             const res = await axios.post(
-                `https://www.solpalai.com/api/chat`,
+                `https://www.solpal.org/api/chat`,
                 { input: input },
                 { timeout: 40000 }
             )
