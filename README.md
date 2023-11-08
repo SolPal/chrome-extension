@@ -29,7 +29,7 @@ If you don't have Git installed on your machine, you can follow the official ins
 First, clone the GitHub repository containing the Chrome extension to your local machine. Open your terminal and run the following command:
 
 ```bash
-git clone https://github.com/username/repository-name.git
+git clone https://github.com/SolPal/chrome-extension.git
 ```
 
 ## Step 2: Navigate to the Extension Folder
@@ -37,7 +37,7 @@ git clone https://github.com/username/repository-name.git
 Navigate to the folder where the Chrome extension code is located. This is usually the root directory of the cloned repository, but it might be in a subfolder.
 
 ```bash
-cd repository-name
+cd chrome-extendion
 ```
 
 ## Step 3: Open Chrome and Navigate to Extensions Page
